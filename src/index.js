@@ -6,7 +6,11 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-function reducer(state, action) {
+const initialState = {
+  counter: 0
+}
+
+function reducer(state = initialState, action) {
   return state;
 }
 
