@@ -1,8 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { legacy_createStore as createStore } from 'redux';
+import { composeWithDevTools } from '@redux-devtools/extension';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+
+function reducer(state, action) {
+  return state;
+}
+
+const store = createStore(reducer, composeWithDevTools());
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
