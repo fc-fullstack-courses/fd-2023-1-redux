@@ -8,11 +8,30 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 const initialState = {
-  counter: 0
+  count: 0,
+  test: 12343423543
 }
 
 function reducer(state = initialState, action) {
-  return state;
+  switch (action.type) {
+    case 'increment': {
+      const newState = {
+        ...state,
+        count: state.count + 1
+      }
+
+      return newState;
+    }
+    case 'decrement': {
+      const newState = {
+        ...state,
+        count: state.count - 1
+      }
+
+      return newState;
+    }
+    default: return state;
+  }
 }
 
 const store = createStore(reducer, composeWithDevTools());
