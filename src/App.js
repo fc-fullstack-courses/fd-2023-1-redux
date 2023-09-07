@@ -1,47 +1,16 @@
-import { connect } from 'react-redux';
 import './App.css';
+import Counter from './components/Counter';
 
 function App(props) {
-  const { count, dispatch } = props;
-
-  const handleIncrement = () => {
-
-    const action = {
-      type: 'increment'
-    }
-
-    dispatch(action);
-  }
-  const handleDecrement = () => {
-    const action = {
-      type: 'decrement'
-    }
-
-    dispatch(action);
-  }
 
   return (
-    <div>
-      <p>Count is : {count}</p>
-      <button onClick={handleDecrement}>Decrement</button>
-      <button onClick={handleIncrement}>Increment</button>
-    </div>
-  );
+    <>
+      <Counter />
+    </>
+  )
 }
 
-function mapStateToProps(state) {
-  return {
-    count: state.count
-  }
-}
-
-// const withProps = connect(mapStateToProps);
-
-// const AppWithProps = withProps(App);
-
-// export default AppWithProps;
-
-export default connect(mapStateToProps)(App);
+export default App;
 
 /*
 
@@ -59,27 +28,3 @@ export default connect(mapStateToProps)(App);
         добавлен в пропсы подключаемому компоненту. Туда обычно передаем часть стейта
 
 */
-
-function sum(a, b) {
-  return a + b;
-}
-
-const res1 = sum(2, 3);
-
-function curriedSum (a) {
-
-  function inner (b) {
-    return a + b;
-  }
-
-  return inner;
-
-}
-
-const temp = curriedSum(2);
-const res2 = temp(3);
-// temp(5);
-// temp(7);
-// temp(10);
-
-const res3 = curriedSum(2)(3);
