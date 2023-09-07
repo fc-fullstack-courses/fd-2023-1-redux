@@ -1,22 +1,17 @@
 import { connect } from 'react-redux';
-import ACTION_TYPES from '../../redux/actions/actionTypes';
+import * as CounterActionCreators from '../../redux/actions/counterActionCreators';
 
 function Counter(props) {
   const { count, dispatch } = props;
 
   const handleIncrement = () => {
-    const action = {
-      type: ACTION_TYPES.INCREMENT,
-    };
+    const action = CounterActionCreators.increment();
 
     dispatch(action);
   };
+  
   const handleDecrement = () => {
-    const action = {
-      type: ACTION_TYPES.DECREMENT,
-    };
-
-    dispatch(action);
+    dispatch(CounterActionCreators.decrement());
   };
 
   return (
