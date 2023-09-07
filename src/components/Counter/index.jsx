@@ -40,10 +40,7 @@ function Counter(props) {
 }
 
 function mapStateToProps(state) {
-  return {
-    count: state.count,
-    step: state.step,
-  };
+  return state.counter
 }
 
 export default connect(mapStateToProps)(Counter);

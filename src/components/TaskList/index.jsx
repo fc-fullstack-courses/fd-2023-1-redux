@@ -62,7 +62,7 @@ const TaskList = (props) => {
 };
 
 const mStP = (state) => ({
-  tasks: state.tasks,
+  tasks: state.task.tasks,
 });
 
 export default connect(mStP)(TaskList);
