@@ -1,23 +1,23 @@
 import { connect } from 'react-redux';
+import ACTION_TYPES from '../../redux/actions/actionTypes';
 
 function Counter(props) {
   const { count, dispatch } = props;
 
   const handleIncrement = () => {
-
     const action = {
-      type: 'increment'
-    }
+      type: ACTION_TYPES.INCREMENT,
+    };
 
     dispatch(action);
-  }
+  };
   const handleDecrement = () => {
     const action = {
-      type: 'decrement'
-    }
+      type: ACTION_TYPES.DECREMENT,
+    };
 
     dispatch(action);
-  }
+  };
 
   return (
     <div>
@@ -30,8 +30,8 @@ function Counter(props) {
 
 function mapStateToProps(state) {
   return {
-    count: state.count
-  }
+    count: state.count,
+  };
 }
 
 export default connect(mapStateToProps)(Counter);
