@@ -1,6 +1,7 @@
 import './App.css';
 import Counter from './components/Counter';
 import TaskList from './components/TaskList';
+import UserCreationForm from './components/UserCreationForm';
 
 function App(props) {
 
@@ -8,6 +9,7 @@ function App(props) {
     <>
       <Counter />
       <TaskList />
+      <UserCreationForm />
     </>
   )
 }
