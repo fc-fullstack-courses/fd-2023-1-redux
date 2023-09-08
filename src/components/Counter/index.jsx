@@ -2,45 +2,44 @@ import { connect } from 'react-redux';
 import * as CounterActionCreators from '../../redux/actions/counterActionCreators';
 
 function Counter(props) {
-  const { count, step, dispatch } = props;
+  const { count, step, increment, decrement, reset, changeStep } = props;
 
-  const handleIncrement = () => {
-    const action = CounterActionCreators.increment();
+  // const handleChangeStep = (e) => {
+  //   const {
+  //     target: { value },
+  //   } = e;
 
-    dispatch(action);
-  };
-
-  const handleDecrement = () => {
-    dispatch(CounterActionCreators.decrement());
-  };
-
-  const handleReset = () => {
-    dispatch(CounterActionCreators.reset());
-  };
-
-  const handleChangeStep = (e) => {
-    const {
-      target: { value },
-    } = e;
-
-    dispatch(CounterActionCreators.changeStep(+value));
-  };
+  //   changeStep(value);
+  // };
 
   return (
     <div>
       <p>Count is : {count}</p>
       <p>
-        Step is : <input type='number' value={step} onChange={handleChangeStep} />
+        Step is :{' '}
+        <input type='number' value={step} onChange={changeStep} />
       </p>
-      <button onClick={handleDecrement}>Decrement</button>
-      <button onClick={handleIncrement}>Increment</button>
-      <button onClick={handleReset}>Reset</button>
+      <button onClick={increment}>Increment</button>
+      <button onClick={decrement}>Decrement</button>
+      <button onClick={reset}>Reset</button>
     </div>
   );
 }
 
 function mapStateToProps(state) {
-  return state.counter
+  return state.counter;
 }
 
-export default connect(mapStateToProps)(Counter);
+function mapDispatchToProps(dispatch) {
+  return {
+    increment: () => dispatch(CounterActionCreators.increment()),
+    decrement: () => dispatch(CounterActionCreators.decrement()),
+    reset: () => dispatch(CounterActionCreators.reset()),
+    // changeStep: (newStep) =>
+    //   dispatch(CounterActionCreators.changeStep(+newStep)),
+    changeStep: ({ target: { value } }) =>
+      dispatch(CounterActionCreators.changeStep(+value)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Counter);

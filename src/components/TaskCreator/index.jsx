@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import * as TasksActionCreators from '../../redux/actions/tasksActionCreators';
 
-const TaskCreator = ({ dispatch }) => {
+const TaskCreator = ({ createTask }) => {
   const [taskText, setTaskText] = useState('');
 
   const submitHandler = (e) => {
     e.preventDefault();
 
-    dispatch(TasksActionCreators.createTask(taskText));
+    createTask(taskText);
 
     setTaskText('');
   };
@@ -28,6 +28,11 @@ const TaskCreator = ({ dispatch }) => {
   );
 };
 
-const mStP = (state) => ({});
+const mDtP = (dispatch) => {
+  return {
+    createTask: (taskText) =>
+      dispatch(TasksActionCreators.createTask(taskText)),
+  };
+};
 
-export default connect(mStP)(TaskCreator);
+export default connect(null, mDtP)(TaskCreator);
