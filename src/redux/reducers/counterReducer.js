@@ -27,11 +27,7 @@ function counterReducer(state = initialState, action) {
 
   const handler = handlers[type];
 
-  if(handler) {
-    return handler(state, action);
-  } else {
-    return state;
-  }
+  return handler ? handler(state, action) : state;
 }
 
 export default counterReducer;
