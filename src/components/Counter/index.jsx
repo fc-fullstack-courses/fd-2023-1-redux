@@ -1,23 +1,37 @@
-import { connect } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import * as CounterActionCreators from '../../redux/actions/counterActionCreators';
 
 function Counter(props) {
-  const { count, step, increment, decrement, reset, changeStep } = props;
+  const { count, step } = useSelector((state) => state.counter);
 
-  // const handleChangeStep = (e) => {
-  //   const {
-  //     target: { value },
-  //   } = e;
+  const dispatch = useDispatch();
 
-  //   changeStep(value);
-  // };
+  useEffect(() => {
+    console.log('rerender');
+  }, [step]);
+
+  const increment = () => {
+    dispatch(CounterActionCreators.increment());
+  };
+
+  const decrement = () => {
+    dispatch(CounterActionCreators.decrement());
+  };
+
+  const reset = () => {
+    dispatch(CounterActionCreators.reset());
+  };
+
+  const changeStep = ({ target: { value } }) => {
+    dispatch(CounterActionCreators.changeStep(+value));
+  };
 
   return (
     <div>
       <p>Count is : {count}</p>
       <p>
-        Step is :{' '}
-        <input type='number' value={step} onChange={changeStep} />
+        Step is : <input type='number' value={step} onChange={changeStep} />
       </p>
       <button onClick={increment}>Increment</button>
       <button onClick={decrement}>Decrement</button>
@@ -26,20 +40,4 @@ function Counter(props) {
   );
 }
 
-function mapStateToProps(state) {
-  return state.counter;
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    increment: () => dispatch(CounterActionCreators.increment()),
-    decrement: () => dispatch(CounterActionCreators.decrement()),
-    reset: () => dispatch(CounterActionCreators.reset()),
-    // changeStep: (newStep) =>
-    //   dispatch(CounterActionCreators.changeStep(+newStep)),
-    changeStep: ({ target: { value } }) =>
-      dispatch(CounterActionCreators.changeStep(+value)),
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Counter);
+export default Counter;
