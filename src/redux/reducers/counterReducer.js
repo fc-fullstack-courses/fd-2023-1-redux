@@ -1,3 +1,4 @@
+import { produce } from 'immer';
 import ACTION_TYPES from "../actions/actionTypes";
 
 const initialState = {
@@ -5,38 +6,31 @@ const initialState = {
   step: 1
 }
 
+const handlers = {
+  [ACTION_TYPES.INCREMENT]: produce((draftState, action) => {
+    draftState.count = draftState.count + draftState.step;
+  }),
+  [ACTION_TYPES.DECREMENT]: produce((draftState, action) => {
+    draftState.count = draftState.count - draftState.step;
+  }),
+  [ACTION_TYPES.RESET]: produce((draftState, action) => {
+    draftState.count = initialState.count;
+    draftState.step = initialState.step;
+  }),
+  [ACTION_TYPES.CHANGE_STEP]: produce((draftState, action) => {
+    draftState.step = action.payload;
+  }),
+}
+
 function counterReducer(state = initialState, action) {
-  switch (action.type) {
-    case ACTION_TYPES.INCREMENT: {
-      const newState = {
-        ...state,
-        count: state.count + state.step
-      }
+  const { type } = action;
 
-      return newState;
-    }
-    case ACTION_TYPES.DECREMENT: {
-      const newState = {
-        ...state,
-        count: state.count - state.step
-      }
+  const handler = handlers[type];
 
-      return newState;
-    }
-    case ACTION_TYPES.RESET: {
-
-      return {
-        ...initialState
-      }
-    }
-    case ACTION_TYPES.CHANGE_STEP: {
-
-      return {
-        ...state,
-        step: action.payload
-      }
-    }
-    default: return state;
+  if(handler) {
+    return handler(state, action);
+  } else {
+    return state;
   }
 }
 
