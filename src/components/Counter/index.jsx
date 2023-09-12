@@ -41,9 +41,9 @@ function Counter(props) {
         Step is :{' '}
         <input type='number' value={step} onChange={changeStepHandler} />
       </p>
-      <button onClick={increment}>Increment</button>
-      <button onClick={decrement}>Decrement</button>
-      <button onClick={reset}>Reset</button>
+      <button onClick={() => increment()}>Increment</button>
+      <button onClick={() => decrement()}>Decrement</button>
+      <button onClick={() => reset()}>Reset</button>
     </div>
   );
 }

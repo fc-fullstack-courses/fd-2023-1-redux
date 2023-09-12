@@ -1,5 +1,5 @@
 import { produce } from 'immer';
-import ACTION_TYPES from "../actions/actionTypes";
+import * as ActionCreators from '../actions/counterActionCreators';
 
 const initialState = {
   count: 0,
@@ -7,17 +7,17 @@ const initialState = {
 }
 
 const handlers = {
-  [ACTION_TYPES.INCREMENT]: produce((draftState, action) => {
+  [ActionCreators.increment.type]: produce((draftState, action) => {
     draftState.count = draftState.count + draftState.step;
   }),
-  [ACTION_TYPES.DECREMENT]: produce((draftState, action) => {
+  [ActionCreators.decrement.toString()]: produce((draftState, action) => {
     draftState.count = draftState.count - draftState.step;
   }),
-  [ACTION_TYPES.RESET]: produce((draftState, action) => {
+  [ActionCreators.reset.type]: produce((draftState, action) => {
     draftState.count = initialState.count;
     draftState.step = initialState.step;
   }),
-  [ACTION_TYPES.CHANGE_STEP]: produce((draftState, action) => {
+  [ActionCreators.changeStep.type]: produce((draftState, action) => {
     draftState.step = action.payload;
   }),
 }
