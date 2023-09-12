@@ -1,4 +1,4 @@
-import { produce } from 'immer';
+import { createReducer } from '@reduxjs/toolkit';
 import * as ActionCreators from '../actions/counterActionCreators';
 
 const initialState = {
@@ -6,28 +6,24 @@ const initialState = {
   step: 1
 }
 
-const handlers = {
-  [ActionCreators.increment.type]: produce((draftState, action) => {
-    draftState.count = draftState.count + draftState.step;
-  }),
-  [ActionCreators.decrement.toString()]: produce((draftState, action) => {
-    draftState.count = draftState.count - draftState.step;
-  }),
-  [ActionCreators.reset.type]: produce((draftState, action) => {
-    draftState.count = initialState.count;
-    draftState.step = initialState.step;
-  }),
-  [ActionCreators.changeStep.type]: produce((draftState, action) => {
-    draftState.step = action.payload;
-  }),
-}
+const counterReducer = createReducer(initialState, (builder) => {
+  // builder.addCase(ActionCreators.increment.toString());
+  // builder.addCase(ActionCreators.increment);
+  builder.addCase(ActionCreators.increment.type, (state, action) => {
+    state.count = state.count + state.step;
+  });
 
-function counterReducer(state = initialState, action) {
-  const { type } = action;
+  builder.addCase(ActionCreators.decrement, (state, action) => {
+    state.count = state.count - state.step;
+  });
 
-  const handler = handlers[type];
+  builder.addCase(ActionCreators.reset, (state, action) => {
+    return initialState;
+  });
 
-  return handler ? handler(state, action) : state;
-}
+  builder.addCase(ActionCreators.changeStep, (state, action) => {
+    state.step = action.payload;
+  });
+});
 
 export default counterReducer;
