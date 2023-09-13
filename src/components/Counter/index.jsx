@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { bindActionCreators } from '@reduxjs/toolkit';
-import * as CounterActionCreators from '../../redux/actions/counterActionCreators';
+import * as CounterActionCreators from '../../redux/slices/counterSlice';
 
 function Counter(props) {
   const { count, step } = useSelector((state) => state.counter);
@@ -12,7 +12,7 @@ function Counter(props) {
     () => bindActionCreators(CounterActionCreators, dispatch),
     [dispatch]
   );
-
+  
   const changeStepHandler = useCallback(
     ({ target: { value } }) => {
       changeStep(+value);
