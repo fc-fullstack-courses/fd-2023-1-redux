@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import * as TasksActionCreators from '../../redux/actions/tasksActionCreators';
+import { createTask } from '../../redux/slices/taskSlice';
 
 const TaskCreator = ({ createTask }) => {
   const [taskText, setTaskText] = useState('');
@@ -30,8 +30,7 @@ const TaskCreator = ({ createTask }) => {
 
 const mDtP = (dispatch) => {
   return {
-    createTask: (taskText) =>
-      dispatch(TasksActionCreators.createTask(taskText)),
+    createTask: (taskText) => dispatch(createTask(taskText)),
   };
 };
 

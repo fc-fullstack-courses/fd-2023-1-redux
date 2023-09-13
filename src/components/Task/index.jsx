@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as TasksActionCreators from '../../redux/actions/tasksActionCreators';
+import { updateTask, deleteTask } from '../../redux/slices/taskSlice';
 
 const Task = ({ task, dispatch }) => {
   return (
@@ -10,7 +10,7 @@ const Task = ({ task, dispatch }) => {
         checked={task.isDone}
         onChange={() => {
           dispatch(
-            TasksActionCreators.updateTask({
+            updateTask({
               id: task.id,
               newValues: {
                 isDone: !task.isDone,
@@ -22,7 +22,7 @@ const Task = ({ task, dispatch }) => {
       <span>{task.body}</span>
       <button
         onClick={() => {
-          dispatch(TasksActionCreators.deleteTask(task.id));
+          dispatch(deleteTask(task.id));
         }}
       >
         Delete task
