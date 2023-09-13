@@ -22,6 +22,25 @@ const createUser = createAsyncThunk(
   }
 );
 
+// const getUser = createAsyncThunk(
+//   `${SLICE_NAME}/get`,
+//   async (userData, thunkAPI) => {
+//     try {
+//       // сделать запрос на сервер
+//       const response = await API.getUser(userData);
+
+//       const { data: { data: user } } = response;
+
+//       // вернуть success action type
+//       return user;
+//     } catch (error) {
+//       // в случае ошибок
+//       console.log(error);
+//       return thunkAPI.rejectWithValue(error.response.data.errors);
+//     }
+//   }
+// );
+
 const initialState = {
   users: [],
   isLoading: false,
@@ -48,6 +67,10 @@ const usersSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     });
+
+    // builder.addCase(getUser.pending, (state) => {
+    //   state.isLoading = true;
+    // })
   }
 });
 
