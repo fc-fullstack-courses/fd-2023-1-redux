@@ -1,7 +1,7 @@
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
 import { connect } from 'react-redux';
-import * as UserActionCreators from '../../redux/actions/usersActionCreators';
+import { createUser } from '../../redux/slices/userSlice';
 
 const initialValues = {
   fullName: '',
@@ -18,7 +18,7 @@ const UserCreationForm = ({ createUserRequest }) => {
       isMale: values.gender === 'male',
       gender: undefined,
     };
-    
+
     createUserRequest(userData);
   };
 
@@ -48,8 +48,7 @@ const UserCreationForm = ({ createUserRequest }) => {
 };
 
 const mDtP = (dispatch) => ({
-  createUserRequest: (userData) =>
-    dispatch(UserActionCreators.createUserRequest(userData)),
+  createUserRequest: (userData) => dispatch(createUser(userData)),
 });
 
 export default connect(null, mDtP)(UserCreationForm);
