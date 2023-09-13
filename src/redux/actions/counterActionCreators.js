@@ -14,7 +14,7 @@ export const reset = createAction('counter/reset');
 export const changeStep = createAction('counter/changeStep');
 
 // action type
-// console.log(increment.type); -> 'counter/increment'
+// console.log(increment.type); -> counter/increment''
 // console.log(increment.toString()); -> 'counter/increment'
 
 function myCreateAction (type) {

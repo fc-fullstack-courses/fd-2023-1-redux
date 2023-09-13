@@ -1,19 +1,7 @@
-import ACTION_TYPES from "./actionTypes";
+import { createAction } from "@reduxjs/toolkit";
 
-export const createTask = (taskText) => ({
-  type: ACTION_TYPES.ADD_TASK,
-  payload: taskText
-});
+export const createTask = createAction('tasks/createTask');
 
-export const updateTask = ({ id, newValues }) => ({
-  type: ACTION_TYPES.UPDATE_TASK,
-  payload: {
-    id,
-    newValues
-  }
-});
+export const updateTask = createAction('tasks/updateTask');
 
-export const deleteTask = (id) => ({
-  type: ACTION_TYPES.DELETE_TASK,
-  payload: id
-});
+export const deleteTask = createAction('tasks/deleteTask');

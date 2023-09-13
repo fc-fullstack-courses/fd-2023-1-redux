@@ -1,57 +1,90 @@
-import ACTION_TYPES from "../actions/actionTypes";
+import { createReducer } from "@reduxjs/toolkit";
+import { createTask, deleteTask, updateTask } from "../actions/tasksActionCreators";
 
 const initialState = {
   tasks: []
 }
 
-function taskReducer (state = initialState, action) {
-  switch(action.type) {
-    case ACTION_TYPES.ADD_TASK: {
-      const newTask = {
-        id: Date.now(),
-        body: action.payload,
-        isDone: false
-      }
-
-      const newTasks = [...state.tasks, newTask];
-
-      return {
-        ...state,
-        tasks: newTasks
-      }
+const taskReducer = createReducer(initialState, (builder) => {
+  builder.addCase(createTask, (state, action) => {
+    const newTask = {
+      id: Date.now(),
+      body: action.payload,
+      isDone: false
     }
-    case ACTION_TYPES.UPDATE_TASK: {
-      const { id, newValues } = action.payload;
-      const { tasks } = state;
 
-      const newTasks = [...tasks];
+    state.tasks.push(newTask);
+  });
 
-      const taskIndex = newTasks.findIndex((task, index) => id === task.id);
+  builder.addCase(deleteTask, (state, action) => {
+    state.tasks = state.tasks.filter(task => task.id !== action.payload);
+  });
 
-      const taskToUpdate = newTasks[taskIndex];
+  builder.addCase(updateTask, (state, action) => {
+    const { id, newValues } = action.payload;
 
-      const updatedTask = { ...taskToUpdate, ...newValues };
+    const taskIndex = state.tasks.findIndex((task, index) => id === task.id);
 
-      newTasks[taskIndex] = updatedTask;
+    state.tasks[taskIndex] = { ...state.tasks[taskIndex], ...newValues };
 
-      return {
-        ...state,
-        tasks: newTasks
-      }
+    // for(const entry of Object.entries(newValues)) {
+    //   const [key, value] = entry;
 
-    }
-    case ACTION_TYPES.DELETE_TASK: {
-      const { tasks } = state;
+    //   state.tasks[taskIndex][key] = value;
+    // }
+  });
+});
 
-      const newTasks = tasks.filter((task) => task.id !== action.payload);
+// function taskReducer(state = initialState, action) {
+//   switch (action.type) {
+//     case ACTION_TYPES.ADD_TASK: {
+//       const newTask = {
+//         id: Date.now(),
+//         body: action.payload,
+//         isDone: false
+//       }
 
-      return {
-        ...state,
-        tasks: newTasks
-      }
-    }
-    default : return state;
-  }
-}
+//       const newTasks = [...state.tasks, newTask];
+
+//       return {
+//         ...state,
+//         tasks: newTasks
+//       }
+//     }
+//     case ACTION_TYPES.UPDATE_TASK: {
+//       const { id, newValues } = action.payload;
+//       const { tasks } = state;
+
+//       const newTasks = [...tasks];
+
+//       const taskIndex = newTasks.findIndex((task, index) => id === task.id);
+
+//       const taskToUpdate = newTasks[taskIndex];
+
+//       // Object.entries зная нужную таску
+//       const updatedTask = { ...taskToUpdate, ...newValues };
+
+
+//       newTasks[taskIndex] = updatedTask;
+
+//       return {
+//         ...state,
+//         tasks: newTasks
+//       }
+
+//     }
+//     case ACTION_TYPES.DELETE_TASK: {
+//       const { tasks } = state;
+
+//       const newTasks = tasks.filter((task) => task.id !== action.payload);
+
+//       return {
+//         ...state,
+//         tasks: newTasks
+//       }
+//     }
+//     default: return state;
+//   }
+// }
 
 export default taskReducer;
